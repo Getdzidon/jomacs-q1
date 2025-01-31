@@ -1,0 +1,45 @@
+name: Deploy Application
+
+on:
+  push:
+    paths:
+      - 'server.js'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+  workflow_dispatch:
+
+jobs:
+  security_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Security Scan (npm audit)
+        run: npm audit --json > audit-report.json || true
+
+      - name: Upload Security Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-report
+          path: audit-report.json
+
+  deploy:
+    needs: security_scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connect to EC2 & Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/ec2-user/app
+            git pull origin main
+            npm install
+            pm2 restart server.js

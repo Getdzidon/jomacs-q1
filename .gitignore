@@ -1,0 +1,62 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Logs
+logs/
+*.log
+*.out
+*.pid
+*.seed
+
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+secrets.json
+
+# Build files
+dist/
+build/
+
+# IDE/editor-specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Terraform files
+*.tfstate
+*.tfstate.backup
+.terraform/
+terraform.tfvars
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# GitHub Actions workflow artifacts
+*.zip
+*.tar.gz
+audit-report.json
+
+# Ignore Docker files if using Docker
+docker-compose.override.yml
+.dockerignore
+
+# Ignore EC2 SSH key files
+*.pem
+*.key
+
+# Ignore AWS credentials
+.aws/
+.credentials
+config
+
+# Ignore deployment artifacts
+deployment.log
+terraform.lock.hcl
+
