@@ -5,11 +5,11 @@ variable "region" {
   default     = "eu-central-1"
 }
 
-variable "ami" {
-  description = "The AMI ID  to use for this instance."
-  type        = string
-  default     = "ami-07eef52105e8a2059"
-}
+# variable "ami" {
+#   description = "The AMI ID  to use for this instance."
+#   type        = string
+#   default     = "ami-07eef52105e8a2059"
+# }
 
 variable "vpc_id" {
   description = "ID of the default vpc"
@@ -40,7 +40,7 @@ variable "instance_count" {
 
 variable "domain_name" {
   description = "Domain name used for DNS record in Route 53"
-  default     = "ecomapp.com" # placeholder for domain name
+  default     = "harridee.com" # placeholder for domain name
 }
 
 variable "alb_name" {
@@ -56,4 +56,9 @@ variable "waf_name" {
 variable "lb_target_group" {
   description = "Load Balancer Target group name"
   default     = "E-comApp-lb-tg"
+}
+
+variable "bucket_name" {
+  default     = "E-comApp"
+  description = "Name of the S3 bucket for storing terraform.tfstate file"
 }

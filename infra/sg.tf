@@ -40,7 +40,7 @@ resource "aws_security_group" "E-comApp_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Note that in a work environment, this should be restricted to only your IP ["YOUR_PUBLIC_IP/32"], a jump/bastion server, or a specific IP range (Eg. Your vpn CIDR BLOCK). Do not allow SSH from everywhere. You should also practice changing the SSH port to something other than 22.
+    cidr_blocks = ["0.0.0.0/0"] # Note that in a work environment, this will be restricted to only my IP ["MY_PUBLIC_IP/32"], a jump/bastion server, or a specific IP range (Eg. vpn CIDR BLOCK). Do not allow SSH from everywhere. Or, I would consider changing the SSH port to something other than 22.
   }
 
   # Allow inbound HTTP (port 80) from ALB

@@ -1,13 +1,12 @@
 {
-    "name": "ecommerce-app",
-    "version": "1.0.0",
-    "description": "A simple e-commerce static website",
-    "main": "server.js",
-    "scripts": {
-      "start": "node server.js"
-    },
-    "dependencies": {
-      "express": "^4.18.2"
-    }
+  "name": "ecommerce-app",
+  "version": "1.0.0",
+  "description": "A simple e-commerce static website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
   }
-  
+}

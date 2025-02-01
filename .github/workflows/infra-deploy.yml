@@ -1,25 +1,46 @@
-name: Deploy Infrastructure
+name: Deploy and Manage Infrastructure
 
 on:
   push:
+    branches: 
+      - main 
     paths:
       - '**.tf'
-  workflow_dispatch:
+  workflow_dispatch: # Allows manual execution
+    inputs:
+      action:
+        description: 'Terraform Action (apply or destroy)'
+        required: true
+        default: 'apply'
+        type: choice
+        options:
+          - apply
+          - destroy
 
 jobs:
-  terraform:
+  deploy_infra:
+    name: Deploy AWS Infrastructure
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./infra
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.3.7
+        uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
         run: terraform init
 
+      - name: Terraform Plan
+        run: terraform plan
+
       - name: Terraform Apply
+        if: github.event_name == 'push' || github.event.inputs.action == 'apply'
         run: terraform apply -auto-approve
+
+      - name: Terraform Destroy
+        if: github.event.inputs.action == 'destroy'
+        run: terraform destroy -auto-approve

@@ -2,44 +2,94 @@ name: Deploy Application
 
 on:
   push:
-    paths:
-      - 'server.js'
-      - 'public/**'
-      - 'package.json'
-      - 'package-lock.json'
-  workflow_dispatch:
+    branches:
+      - main
+    paths-ignore:
+      - 'node_modules/**'
+      - 'infra/**'
+      - 'docs/**'
+      - 'readme.md'
+      - '.github/workflows/infra-deploy.yml'
+      - '.gitignore' 
+  workflow_dispatch: # Allows manual execution
 
 jobs:
   security_scan:
+    name: Security Scan & Deployment
     runs-on: ubuntu-latest
+    defaults: 
+      run:
+        working-directory: ./app
+
     steps:
-      - name: Checkout Code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Install Dependencies
         run: npm install
 
       - name: Run Security Scan (npm audit)
-        run: npm audit --json > audit-report.json || true
+        run: |
+          # Run security scan and save the report in json format
+          npm audit --audit-level=high --json > audit-report.json || true
+          cat audit-report.json
 
-      - name: Upload Security Report
-        uses: actions/upload-artifact@v3
+
+      - name: Upload audit-report
+        uses: actions/upload-artifact@v4
         with:
-          name: security-report
-          path: audit-report.json
+          name: audit-report
+          path: ./app/audit-report.json
 
-  deploy:
-    needs: security_scan
+  download-artifact:
+    name: Download audit-report
     runs-on: ubuntu-latest
+    needs: security_scan
+        
     steps:
-      - name: Connect to EC2 & Deploy
+      - name: Download audit-report
+  deploy:
+      name: Deploy to Production (on EC2)
+      uses: actions/download-artifact@v4
+      with:
+
+      name: audit-report
+    environment: production
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app
+    needs: security_scan
+    
+    steps:
+      - name: Checkout the files
+        uses: actions/checkout@v4
+
+      - name: Deploy to EC2 Server
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.EC2_USER }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+
+      - name: Executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ec2-user
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /home/ec2-user/app
-            git pull origin main
-            npm install
-            pm2 restart server.js
+            sudo apt-get -y update
+            sudo apt-get install -y apache2
+            sudo systemctl daemon-reload
+            sudo systemctl start apache2
+            sudo systemctl enable apache2
+            
+            cd ${{ secrets.TARGET_DIR }}
+
+            # Remove existing contents of /var/www/html
+            sudo rm -rf /var/www/html/*
+
+            # Move new files to /var/www/html
+            sudo mv * /var/www/html
