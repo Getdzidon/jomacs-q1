@@ -60,3 +60,8 @@ data "aws_ssm_parameter" "account_id" {
   name            = "/global/aws/id"
   with_decryption = true
 }
+
+data "aws_ssm_parameter" "bucket_name" {
+  name            = "/terraform/backend/bucket"
+  with_decryption = true
+}
