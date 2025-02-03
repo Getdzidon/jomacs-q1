@@ -4,7 +4,7 @@ resource "aws_lb" "E-comApp_alb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
-  subnets            = split(",", data.aws_ssm_parameter.subnets.value)  # Using SSM parameter list
+  subnets            = split(",", data.aws_ssm_parameter.subnets.value) # Using SSM parameter list
 } 
 
 resource "aws_lb_target_group" "tg" {

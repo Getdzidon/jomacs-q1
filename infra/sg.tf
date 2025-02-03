@@ -27,6 +27,9 @@ resource "aws_security_group" "alb_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+    tags = {
+    Name = "${var.instance_name}-alb-sg"
+  }
 }
 
 # Security Group for EC2 Instance (E-comApp Server/vm) This is very important and critical
@@ -65,5 +68,8 @@ resource "aws_security_group" "E-comApp_sg" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+      tags = {
+    Name = "${var.instance_name}-ec2-sg"
   }
 }

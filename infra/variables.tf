@@ -59,6 +59,6 @@ variable "lb_target_group" {
 }
 
 variable "bucket_name" {
-  default     = "E-comApp"
+  default     = "E-com-app"
   description = "Name of the S3 bucket for storing terraform.tfstate file"
 }
