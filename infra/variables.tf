@@ -40,7 +40,7 @@ variable "instance_count" {
 
 variable "domain_name" {
   description = "Domain name used for DNS record in Route 53"
-  default     = "harridee.com" # placeholder for domain name
+  default     = "market.harridee.com" # placeholder for domain name
 }
 
 variable "alb_name" {
