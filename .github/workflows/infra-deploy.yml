@@ -4,14 +4,16 @@ on:
   push:
     branches: 
       - main 
-    paths:
-      - '**.tf'
+    paths-ignore:
+      - 'app/**'
+      - 'docs/**'
+      - 'readme.md'
+      - '.github/workflows/app-deploy.yml'
   workflow_dispatch: # Allows manual execution
     inputs:
       action:
         description: 'Terraform Action (apply or destroy)'
         required: true
-        default: 'apply'
         type: choice
         options:
           - apply
