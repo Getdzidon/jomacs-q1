@@ -34,7 +34,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-<<<<<<< HEAD
 
       - name: Restore Terraform State
         uses: actions/cache@v3
@@ -42,8 +41,6 @@ jobs:
           path: ./infra/terraform.tfstate
           key: terraform-state-${{ github.run_id }}
           restore-keys: terraform-state-
-=======
->>>>>>> aad6e4fcc98a1ef418c681124827e38276f542f1
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -67,7 +64,6 @@ jobs:
 
       - name: Terraform Apply
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event.inputs.action == 'apply'
-<<<<<<< HEAD
         run: terraform apply -auto-approve
 
       - name: Save Terraform State
@@ -80,15 +76,10 @@ jobs:
         if: github.event.inputs.action == 'destroy'
         run: terraform refresh
 
-=======
-        run: terraform apply --auto-approve
-
->>>>>>> aad6e4fcc98a1ef418c681124827e38276f542f1
       - name: Terraform Destroy
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'destroy'
         run: |
           terraform plan -destroy
-<<<<<<< HEAD
           terraform destroy -auto-approve
 
       - name: Save Terraform State After Destroy
@@ -96,8 +87,3 @@ jobs:
         with:
           path: ./infra/terraform.tfstate
           key: terraform-state-${{ github.run_id }}
-=======
-          terraform destroy --auto-approve
-
-
->>>>>>> aad6e4fcc98a1ef418c681124827e38276f542f1
