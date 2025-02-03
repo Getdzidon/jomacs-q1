@@ -23,9 +23,11 @@ output "ubuntu_ami_id" {
 # output "vpc_id" {
 #   value = data.aws_ssm_parameter.vpc_id.value
 # }
-output "vpc_cidr" {
-  value = data.aws_ssm_parameter.vpc_cidr.value
-}
+
+# output "vpc_cidr" {
+#   value = data.aws_ssm_parameter.vpc_cidr.value
+# }
+
 # output "tls_cert" {
 #   value = data.aws_ssm_parameter.tls_cert.value
 # }
