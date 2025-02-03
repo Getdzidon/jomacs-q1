@@ -9,47 +9,51 @@ data "aws_ami" "ubuntu" {
   }
 }
 
-####################################   edit  ################################
-# Fetching VPC ID from SSM Parameter Store 
+################# Fetching Data from SSM Parameter Store ####################
+
 # Verify the SSM Parameter Exists in AWS SSM using the AWS CLI command below
-# aws ssm get-parameter --name "/your/parameter/subnet_ids"
+# aws ssm get-parameter --name "/your/parameter/subnet_ids" eg: "/MyEcommApp/euc1/vpc/vpc_id"
+
+# Run this AWS CLI command to store the VPC ID: 
+# Without description: aws ssm put-parameter --name "/E-comApp/vpc/vpc_id" --value "vpc-0528dc4e6cbc1eb6c" --type "String"
+# Or with description: aws ssm put-parameter --name "/MyEcommApp/euc1/vpc/cidr_cidr" --value "172.x.x.x/y" --type "String" --overwrite --description "CIDR block for MyEcommApp VPC in eu-central-1"
+
 data "aws_ssm_parameter" "vpc_id" {
-  name            = "/accounts/euc1/vpc/vpc_id"
+  name            = "/MyEcommApp/euc1/vpc/vpc_id"
   with_decryption = true
 }
 
 # Fetching VPC CIDR from SSM Parameter Store
 data "aws_ssm_parameter" "vpc_cidr" {
-  name            = "/accounts/euc1/vpc/cidr_block"
+  name            = "/MyEcommApp/euc1/vpc/cidr_block"
   with_decryption = true
 }
 
 data "aws_ssm_parameter" "subnets" {
-  name = "/accounts/euc1/subnet/ids"  # Replace this with your actual SSM parameter name
+  name = "/MyEcommApp/euc1/subnet/ids"  # Replace this with your actual SSM parameter name
   with_decryption = true
 }
 
 # Fetching Subnet IDs from SSM Parameter Store
-data "aws_ssm_parameter" "subnet_ids" {
-  name            = "/accounts/euc1/vpc/subnet_ids"
-  with_decryption = true
-}
+# data "aws_ssm_parameter" "subnet_ids" {
+#   name            = "/MyEcommApp/euc1/vpc/subnet_ids"
+#   with_decryption = true
+# }
 
 # Fetching TLS certificate ARN from SSM Parameter Store
-data "aws_ssm_parameter" "tls_cert" {
-  name            = "/accounts/global/acm/certificate/tls_cert_arn"
-  with_decryption = true
-}
+# data "aws_ssm_parameter" "tls_cert" {
+#   name            = "/MyEcommApp/global/acm/certificate/tls_cert_arn"
+#   with_decryption = true
+# }
 
 # Fetching route53 zone IDs from SSM Parameter Store
 data "aws_ssm_parameter" "zone_id" {
-  name            = "/accounts/euc1/route53/zone/id"
+  name            = "/MyEcommApp/euc1/route53/zone/id"
   with_decryption = true
 }
 
 # Fetching account ID from SSM Parameter Store
 data "aws_ssm_parameter" "account_id" {
-  name            = "/accounts/aws/id"
+  name            = "/global/aws/id"
   with_decryption = true
 }
-####################################   edit  ################################

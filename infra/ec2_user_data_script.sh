@@ -4,9 +4,8 @@ sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo apt-get install -y git
 sudo apt-get install -y nodejs npm # Install Node.js (and npm)
-# Check the installed versions of Node.js and npm
-node -v
-npm -v
+node -v # Check the installed versions of Node.js
+npm -v # Check the installed versions of npm
 git clone https://github.com/getdzidon/jomacs-q1.git # Clone the Node.js app from your GitHub repository 
 cd jomacs-q1 # Navigate to the app directory
 npm install # Install the required dependencies from package.json
@@ -18,7 +17,7 @@ npm start # Start the Node.js application (using pm2 for production, or simply n
 # them for reverse proxying (which is common but not necessary in every case).
 
 
-#Already used the following app-deploy.yml file to deploy the app on AWS EC2 instance
+# Already used the following app-deploy.yml file to deploy the app on AWS EC2 instance
 # Or use nginx as reverse proxy server for nodejs app
 # sudo apt-get install -y update
 # sudo apt-get install -y upgrade

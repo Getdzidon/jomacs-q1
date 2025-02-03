@@ -1,5 +1,5 @@
 # Route 53 Setup
-resource "aws_route53_record" "www" {
+resource "aws_route53_record" "airbnb" {
   zone_id = data.aws_ssm_parameter.zone_id.value # Fetch the Zone ID from SSM
   name    = var.domain_name                      # Your domain (e.g., "www.example.com")
   type    = "A"

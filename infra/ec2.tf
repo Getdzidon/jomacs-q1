@@ -6,7 +6,7 @@ resource "aws_instance" "E-comApp_server" {
   count                  = var.instance_count # Reference a variable for key pair
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.E-comApp_sg.id]                 # Use the existing SG #define a sg in variables and call it here. 
-  subnet_id              = split(".", data.aws_ssm_parameter.subnets.value)[0] # use ssm parameter to dynamically call the subnet.
+  subnet_id              = split(".", data.aws_ssm_parameter.subnets.value)[0] # use ssm parameter to dynamically call the first subnet.
 
 
   user_data = file("${path.module}/ec2_user_data_script.sh")

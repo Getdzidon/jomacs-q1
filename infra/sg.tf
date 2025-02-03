@@ -1,6 +1,6 @@
 # Security Group for Application Load Balancer (ALB)
 resource "aws_security_group" "alb_sg" {
-  name        = "E-comApp-alb-security-group"
+  name        = "${var.instance_name}-alb-security-group"
   description = "Security group controlling access to the ALB"
   vpc_id      = data.aws_ssm_parameter.vpc_id.value
 
@@ -31,7 +31,7 @@ resource "aws_security_group" "alb_sg" {
 
 # Security Group for EC2 Instance (E-comApp Server/vm) This is very important and critical
 resource "aws_security_group" "E-comApp_sg" {
-  name        = "E-comApp-ec2-security-group"
+  name        = "${var.instance_name}-ec2-security-group"
   description = "Security group for the EC2 instance on which the application is deployed"
   vpc_id      = data.aws_ssm_parameter.vpc_id.value
 

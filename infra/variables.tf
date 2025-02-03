@@ -11,10 +11,10 @@ variable "region" {
 #   default     = "ami-07eef52105e8a2059"
 # }
 
-variable "vpc_id" {
-  description = "ID of the default vpc"
-  default     = "vpc-0528dc4e6cbc1eb6c"
-}
+# variable "vpc_id" {
+#   description = "ID of the default vpc"
+#   default     = "vpc-0528dc4e6cbc1eb6c"
+# }
 
 variable "instance_type" {
   description = "Instance type for the EC2 instance"
