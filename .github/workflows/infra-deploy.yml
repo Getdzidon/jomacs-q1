@@ -17,7 +17,6 @@ on:
           - apply
           - destroy
 
-
 jobs:
   deploy_infra:
     name: Deploy AWS Infrastructure
