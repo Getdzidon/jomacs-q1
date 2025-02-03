@@ -20,9 +20,9 @@ output "ubuntu_ami_id" {
 }
 
 ############## Output to verify the ssm parameters ##############
-output "vpc_id" {
-  value = data.aws_ssm_parameter.vpc_id.value
-}
+# output "vpc_id" {
+#   value = data.aws_ssm_parameter.vpc_id.value
+# }
 output "vpc_cidr" {
   value = data.aws_ssm_parameter.vpc_cidr.value
 }

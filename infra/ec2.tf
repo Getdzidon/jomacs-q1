@@ -1,6 +1,6 @@
 # EC2 Instance for Node.js App
 resource "aws_instance" "E-comApp_server" {
-  ami = data.aws_ami.ubuntu.id
+  ami                    = data.aws_ami.ubuntu.id
   # Reference a variable for or use AMI ami = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type  # Reference a variable for instance type
   count                  = var.instance_count # Reference a variable for key pair

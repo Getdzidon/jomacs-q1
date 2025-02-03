@@ -1,12 +1,15 @@
 # Data for Fetching Latest Ubuntu AMI
 data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["099720109477"] # Canonical's AWS Account ID (owner of Ubuntu AMIs)
-
+  owners      = ["099720109477"] # Canonical's AWS account ID
   filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-*-x86_64-gp2"]
-  }
+      name   = "name"
+      values = ["ubuntu/images/hvm-ssd/ubuntu-*-20.04-amd64-server-*"]
+    }
+  filter {
+      name   = "virtualization-type"
+      values = ["hvm"]
+    }
 }
 
 ################# Fetching Data from SSM Parameter Store ####################
@@ -30,7 +33,7 @@ data "aws_ssm_parameter" "vpc_cidr" {
 }
 
 data "aws_ssm_parameter" "subnets" {
-  name = "/MyEcommApp/euc1/subnet/ids"  # Replace this with your actual SSM parameter name
+  name            = "/MyEcommApp/euc1/subnet/ids" # Replace this with your actual SSM parameter name
   with_decryption = true
 }
 
