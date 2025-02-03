@@ -6,7 +6,7 @@ on:
       - main 
     paths:
       - '**.tf'
-  workflow_dispatch: # Allows manual execution.
+  workflow_dispatch: # Allows manual execution
     inputs:
       action:
         description: 'Terraform Action (apply or destroy)'
@@ -16,6 +16,7 @@ on:
         options:
           - apply
           - destroy
+
 
 jobs:
   deploy_infra:
