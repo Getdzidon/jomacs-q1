@@ -23,7 +23,7 @@ variable "instance_type" {
 
 variable "instance_name" {
   description = "Name of EC2 instance"
-  default     = "E-comApp"
+  default     = "e-com-app"
 }
 
 variable "key_name" {
@@ -45,20 +45,20 @@ variable "domain_name" {
 
 variable "alb_name" {
   description = "Application Load Balancer name"
-  default     = "E-comApp-alb"
+  default     = "e-com-app-alb"
 }
 
 variable "waf_name" {
   description = "WAF name"
-  default     = "E-comApp-waf-web-acl"
+  default     = "e-com-app-waf-web-acl"
 }
 
 variable "lb_target_group" {
   description = "Load Balancer Target group name"
-  default     = "E-comApp-lb-tg"
+  default     = "e-comm-app-lb-tg"
 }
 
 variable "bucket_name" {
-  default     = "E-com-app"
+  default     = "harridee-ecom-app"
   description = "Name of the S3 bucket for storing terraform.tfstate file"
 }

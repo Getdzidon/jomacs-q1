@@ -4,15 +4,15 @@ output "security_group_id" {
   value       = aws_security_group.E-comApp_sg.id
 }
 
-output "instance_ids" {
-  description = "The ID of the created EC2 instance"
-  value       = [for instance in aws_instance.E-comApp_server : instance.id]
-}
+# output "instance_ids" {
+#   description = "The ID of the created EC2 instance"
+#   value       = [for instance in aws_instance.E-comApp_server : instance.id]
+# }
 
-output "instance_public_ips" {
-  description = "The public IP of the created EC2 instance"
-  value       = [for instance in aws_instance.E-comApp_server : instance.public_ip]
-}
+# output "instance_public_ips" {
+#   description = "The public IP of the created EC2 instance"
+#   value       = [for instance in aws_instance.E-comApp_server : instance.public_ip]
+# }
 
 # Output the ID of the Ubuntu AMI
 output "ubuntu_ami_id" {
