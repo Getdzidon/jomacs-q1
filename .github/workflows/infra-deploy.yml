@@ -38,15 +38,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Restore Terraform State
-        uses: actions/cache@v3
-        with:
-          path: ./infra/terraform.tfstate
-          key: terraform-state-${{ github.run_id }}
-          restore-keys: terraform-state-
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init (with environment variables)
+        run: terraform init -migrate-state
 
       - name: Cache Terraform Modules & Providers
         uses: actions/cache@v3
@@ -56,11 +52,18 @@ jobs:
             .terraform
           key: terraform-${{ runner.os }}-${{ hashFiles('**/*.tf') }}
 
-      - name: Terraform Init (with environment variables)
-        run: terraform init -migrate-state
+      - name: Restore Terraform State
+        uses: actions/cache@v3
+        with:
+          path: ./infra/terraform.tfstate
+          key: terraform-state-${{ github.run_id }}
+          restore-keys: terraform-state-
 
       - name: Terraform Validate
         run: terraform validate
+
+      - name: Terraform Refresh (before Apply)
+        run: terraform refresh
 
       - name: Terraform Plan
         run: terraform plan
@@ -75,7 +78,7 @@ jobs:
           path: ./infra/terraform.tfstate
           key: terraform-state-${{ github.run_id }}
 
-      - name: Refresh Terraform State
+      - name: Refresh Terraform State (on Destroy)
         if: github.event.inputs.action == 'destroy'
         run: terraform refresh
 
