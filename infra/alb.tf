@@ -41,3 +41,20 @@ resource "aws_lb_listener" "http" {
     }
   }
 }
+
+# ALB Listener for HTTPS (port 443)
+resource "aws_lb_listener" "https" {
+  load_balancer_arn = aws_lb.E-comApp_alb.arn
+  port              = 443
+  protocol          = "HTTPS"
+  certificate_arn   = data.aws_ssm_parameter.ssl_cert_arn.value # Reference your SSL certificate ARN here
+
+  default_action {
+    type = "forward"
+    forward {
+      target_group {
+        arn = aws_lb_target_group.tg.arn
+      }
+    }
+  }
+}

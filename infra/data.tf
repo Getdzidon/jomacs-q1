@@ -65,3 +65,8 @@ data "aws_ssm_parameter" "bucket_name" {
   name            = "/terraform/backend/bucket"
   with_decryption = true
 }
+
+data "aws_ssm_parameter" "ssl_cert_arn" {
+  name            = "/MyEcommApp/ssl/ssl_cert_arn"
+  with_decryption = true
+}

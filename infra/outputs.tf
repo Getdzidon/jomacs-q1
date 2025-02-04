@@ -28,6 +28,6 @@ output "ubuntu_ami_id" {
 #   value = data.aws_ssm_parameter.vpc_cidr.value
 # }
 
-# output "tls_cert" {
-#   value = data.aws_ssm_parameter.tls_cert.value
+# output "ssl_cert" {
+#   value = data.aws_ssm_parameter.ssl_cert_arn.value
 # }
