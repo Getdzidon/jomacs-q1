@@ -47,7 +47,7 @@ resource "aws_lb_listener" "https" {
   load_balancer_arn = aws_lb.E-comApp_alb.arn
   port              = 443
   protocol          = "HTTPS"
-  certificate_arn   = data.aws_ssm_parameter.ssl_cert_arn.value # Reference your SSL certificate ARN here
+  # certificate_arn   = data.aws_ssm_parameter.ssl_cert_arn.value # Reference your SSL certificate ARN here
 
   default_action {
     type = "forward"
