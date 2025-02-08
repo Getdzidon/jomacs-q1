@@ -58,7 +58,7 @@ jobs:
     defaults:
       run:
         working-directory: ./app
-    needs: security_scan  # This job also depends on the security_scan job.
+    needs: security_scan  # This job also depends on the security_scan job
 
     steps:
       - name: Checkout the files
