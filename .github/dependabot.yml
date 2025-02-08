@@ -1,0 +1,40 @@
+version: 2
+updates:
+  # Monitor npm dependencies in the app directory
+  - package-ecosystem: "npm"
+    directory: "/app"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: "some-package"
+        versions: [">=1.2.3"]
+    commit-message:
+      prefix: "npm update:"
+    labels:
+      - "dependencies"
+      - "npm"
+
+  # Monitor GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci:"
+    labels:
+      - "dependencies"
+      - "github-actions"
+
+  # Monitor Terraform dependencies in the infra directory
+  - package-ecosystem: "terraform"
+    directory: "/infra"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "terraform update:"
+    labels:
+      - "dependencies"
+      - "terraform"

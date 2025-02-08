@@ -58,7 +58,7 @@ variable "lb_target_group" {
   default     = "e-comm-app-lb-tg"
 }
 
-variable "bucket_name" {
-  default     = "harridee-ecom-app"
-  description = "Name of the S3 bucket for storing terraform.tfstate file"
-}
+# variable "bucket_name" {
+#   default     = "harridee-ecom-app"
+#   description = "Name of the S3 bucket for storing terraform.tfstate file"
+# }

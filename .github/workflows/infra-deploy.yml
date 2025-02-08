@@ -11,7 +11,7 @@ on:
       - '.github/workflows/app-deploy.yml'
   workflow_dispatch:
     inputs:
-      action:
+      terraform_action:
         description: 'Terraform Action (apply or destroy)'
         required: true
         type: choice
@@ -63,8 +63,13 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
-      - name: Terraform Refresh (before Apply)
-        run: terraform refresh
+      - name: Terraform Refresh (before Apply or Destroy)
+        run: |
+          terraform init -migrate-state \
+            -backend-config="bucket=${{ secrets.S3_BUCKET_NAME }}" \
+            -backend-config="key=${{ secrets.TF_STATE_KEY }}" \
+            -backend-config="region=${{ secrets.S3_BUCKET_REGION }}"
+          terraform refresh
 
       - name: Terraform Plan
         run: terraform plan
@@ -79,18 +84,12 @@ jobs:
           path: ./infra/terraform.tfstate
           key: terraform-state-${{ github.run_id }}
 
-      - name: Refresh Terraform State (on Destroy)
+      - name: Debug Terraform State (on Destroy)
         if: github.event.inputs.action == 'destroy'
-        run: terraform refresh
+        run: terraform state list
 
       - name: Terraform Destroy
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'destroy'
         run: |
           terraform plan -destroy
           terraform destroy -auto-approve
-
-      - name: Save Terraform State After Destroy
-        uses: actions/cache@v3
-        with:
-          path: ./infra/terraform.tfstate
-          key: terraform-state-${{ github.run_id }}
