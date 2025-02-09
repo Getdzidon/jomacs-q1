@@ -140,7 +140,7 @@ resource "aws_wafv2_web_acl" "WafWebAcl" {
 
 # Enable WAF logging to CloudWatch
 resource "aws_wafv2_web_acl_logging_configuration" "waf_logging" {
-  log_destination_configs = log_destination_configs = ["arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/waf/${var.waf_name}:*"]
+  log_destination_configs = ["arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/waf/${var.waf_name}:*"]
   resource_arn           = aws_wafv2_web_acl.WafWebAcl.arn
   depends_on = [aws_cloudwatch_log_resource_policy.waf_logs_policy] # Ensure policy is applied first
 }
