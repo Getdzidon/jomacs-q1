@@ -30,7 +30,7 @@ resource "aws_lb_target_group" "tg" {
 # Attach EC2 Instance to Target Group
 resource "aws_lb_target_group_attachment" "tg_attachment" {
   target_group_arn = aws_lb_target_group.tg.arn
-  target_id        = aws_instance.ubuntu.id
+  target_id        = aws_instance.ubuntu[count.index].id
   port             = 80
 }
 
