@@ -1,4 +1,4 @@
-# Harridee E-commerce App (Harridee Marketplace)
+# Harridee E-commerce App (Harridee Marketplace) - Work In Progress
 
 This project, developed by Dzissah Donatus Dziedzorm for Jomacs IT, details the design and deployment of the Harridee E-commerce App (Harridee Marketplace).  It covers the architecture, CI/CD pipeline, Infrastructure as Code (IaC), Dependabot integration, and AWS Web Application Firewall (WAF) configuration.
 
@@ -39,7 +39,7 @@ Feel free to connect on LinkedIn or reach out if you have any questions or enhan
 
 The CI/CD workflow automates building, vulnerability scanning, and deployment of the application to an AWS EC2 instance.
 
-![CI/CD Run](docs/CI_CD.jpg "Screenshot of CI/CD Run")
+![CI/CD Run](docs/ci_cd.jpg "Screenshot of CI/CD Run")
 
 ### Dependency Installation and Security Scanning
 
