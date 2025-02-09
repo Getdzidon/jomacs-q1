@@ -1,14 +1,19 @@
 # Harridee E-commerce App (Harridee Marketplace) - Work In Progress
 
-This project, developed by Dzissah Donatus Dziedzorm for Jomacs IT, details the design and deployment of the Harridee E-commerce App (Harridee Marketplace).  It covers the architecture, CI/CD pipeline, Infrastructure as Code (IaC), Dependabot integration, and AWS Web Application Firewall (WAF) configuration.
+This project, developed by **Dzissah Donatus Dziedzorm** for **Jomacs IT**, details the design and deployment of the **Harridee E-commerce App (Harridee Marketplace)**.
 
 ## Technologies Used
 
-*   AWS (EC2, ALB, WAF, Route 53)
+*   AWS EC2 
+*   Application LLoad Balancer (ALB)
+*   Route 53
+*   AWS Web Application Firewall (WAF)
 *   Terraform
 *   Node.js
 *   GitHub Actions (CI/CD)
 *   Security Tools (npm audit)
+*   Dependabot
+*   Infrastructure as Code (IaC) using Terraform
 
 ## Setup Instructions
 
@@ -19,7 +24,7 @@ This project, developed by Dzissah Donatus Dziedzorm for Jomacs IT, details the 
     cd jomacs-q1
     ```
 
-The app was deployed adhering to SOC2 regulations.
+The app was deployed adhering to **SOC2** regulations.
 
 Feel free to connect on LinkedIn or reach out if you have any questions or enhancements for this project.
 
