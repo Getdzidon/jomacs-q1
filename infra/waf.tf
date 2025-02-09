@@ -20,7 +20,7 @@ resource "aws_cloudwatch_log_resource_policy" "waf_logs_policy" {
         "Service": "waf.amazonaws.com"
       },
       "Action": "logs:PutLogEvents",
-      "Resource": "arn:aws:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/waf/${var.waf_name}:*"
+      "Resource": "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/waf/${var.waf_name}:*"
     }
   ]
 }
