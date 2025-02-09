@@ -1,4 +1,33 @@
+# Fetch AWS account details
+data "aws_caller_identity" "current" {}
 
+# Create a CloudWatch Log Group for WAF logs
+resource "aws_cloudwatch_log_group" "waf_logs" {
+  name              = "/aws/waf/${var.waf_name}"
+  retention_in_days = 30 # Logs will be retained for 30 days
+}
+
+# Add a Resource Policy to allow AWS WAF to write logs to CloudWatch
+resource "aws_cloudwatch_log_resource_policy" "waf_logs_policy" {
+  policy_name = "AWSWAFLoggingPolicy"
+  policy_document = <<EOT
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "waf.amazonaws.com"
+      },
+      "Action": "logs:PutLogEvents",
+      "Resource": "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/waf/${var.waf_name}:*"
+    }
+  ]
+}
+EOT
+}
+
+# Define AWS WAF Web ACL
 resource "aws_wafv2_web_acl" "WafWebAcl" {
   name        = var.waf_name
   description = "Simple WAF for e-commerce website with rate limiting"
@@ -109,14 +138,9 @@ resource "aws_wafv2_web_acl" "WafWebAcl" {
   }
 }
 
-# Create a CloudWatch Log Group for WAF logs
-resource "aws_cloudwatch_log_group" "waf_logs" {
-  name = "/aws/waf/${var.waf_name}"
-  retention_in_days = 30 # Logs will be retained for 30 days
-}
-
 # Enable WAF logging to CloudWatch
 resource "aws_wafv2_web_acl_logging_configuration" "waf_logging" {
   log_destination_configs = [aws_cloudwatch_log_group.waf_logs.arn]
   resource_arn           = aws_wafv2_web_acl.WafWebAcl.arn
+  depends_on = [aws_cloudwatch_log_resource_policy.waf_logs_policy] # Ensure policy is applied first
 }
