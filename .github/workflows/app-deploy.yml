@@ -15,7 +15,7 @@ on:
 
 jobs:
   security_scan:
-    name: Security Scan & Deployment
+    name: Security Scan & install dependencies
     runs-on: ubuntu-latest
     defaults: 
       run:
