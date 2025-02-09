@@ -64,6 +64,8 @@ The pipeline uses Node.js, installs libraries, and runs vulnerability checks (`n
 ## Controlled Deployment / Release Management
 
 *   **Description:** (Add description here)
+![Contreolled Deployment](docs/deploy_workflow_showing_security_scan_need.jpg "Screenshot of GitHub workflow Run need for Security Scan before App deployment")
+
 *   **Control Alignment with SOC2:**
     *   **Change Management:** This confirms that all changes are authorized, tested, and validated before a new release. **Ref: CC8.1**
     *   **System Operations:** Automated checks reduce and prevent human error, providing consistent security enforcement. **Ref: CC7.2**
@@ -80,4 +82,4 @@ The pipeline uses Node.js, installs libraries, and runs vulnerability checks (`n
 
 ## Automating Updates Using Dependabot
 
-Dependabot is configured to automatically create pull requests for new versions of npm, GitHub Actions, and Terraform dependencies. This ensures the project stays current with security patches and feature updates.
+**Dependabot** is configured to automatically create pull requests for new versions of npm, GitHub Actions, and Terraform dependencies. This ensures the project stays current with security patches and feature updates.
