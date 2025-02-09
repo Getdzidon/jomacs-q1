@@ -79,12 +79,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            sudo apt-get -y update
-            sudo apt-get install -y nginx
-            sudo systemctl daemon-reload
-            sudo systemctl start nginx
-            sudo systemctl enable nginx
-            
+            # Change directory to the target directory
             cd ${{ secrets.TARGET_DIR }}
 
             # Remove existing contents of /var/www/html
