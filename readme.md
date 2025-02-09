@@ -52,6 +52,8 @@ The pipeline uses Node.js, installs libraries, and runs vulnerability checks (`n
 
 ![Security Scan](docs/security_scan.jpg "Screenshot of GitHub Actions Run Showing Successful Security Scan")
 
+![Security Scan](docs/security_scan2.jpg "Screenshot of GitHub Actions Run Showing Successful Security Scan")
+
 **Control Alignment with SOC2:** CC701, CC7.2
 
 ## Artifact Storage and Logging
