@@ -46,7 +46,7 @@ jobs:
             -backend-config="region=${{ secrets.S3_BUCKET_REGION }}"
 
       - name: Cache Terraform Modules & Providers
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.terraform.d/plugin-cache
@@ -54,7 +54,7 @@ jobs:
           key: terraform-${{ runner.os }}-${{ hashFiles('**/*.tf') }}
 
       - name: Restore Terraform State
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./infra/terraform.tfstate
           key: terraform-state-${{ github.run_id }}
@@ -79,7 +79,7 @@ jobs:
         run: terraform apply -auto-approve
 
       - name: Save Terraform State
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./infra/terraform.tfstate
           key: terraform-state-${{ github.run_id }}
