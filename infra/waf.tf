@@ -45,7 +45,7 @@ resource "aws_wafv2_web_acl" "WafWebAcl" {
     }
   }
 
-  # Prevent excessive requests from a single IP address to mitigate ddos attacks
+  # Rule to prevent excessive requests from a single IP address (DDoS mitigation)
   rule {
     name     = "RateLimitRequests"
     priority = 5
@@ -68,7 +68,7 @@ resource "aws_wafv2_web_acl" "WafWebAcl" {
     }
 
   }
-
+# AWS Managed Rules for common vulnerabilities
   rule {
 
     name     = "AWS-ManagedRulesCommonRuleSet"
@@ -107,4 +107,16 @@ resource "aws_wafv2_web_acl" "WafWebAcl" {
       sampled_requests_enabled   = true
     }
   }
+}
+
+# Create a CloudWatch Log Group for WAF logs
+resource "aws_cloudwatch_log_group" "waf_logs" {
+  name = "/aws/waf/${var.waf_name}"
+  retention_in_days = 30 # Logs will be retained for 30 days
+}
+
+# Enable WAF logging to CloudWatch
+resource "aws_wafv2_web_acl_logging_configuration" "waf_logging" {
+  log_destination_configs = [aws_cloudwatch_log_group.waf_logs.arn]
+  resource_arn           = aws_wafv2_web_acl.WafWebAcl.arn
 }
