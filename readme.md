@@ -1,6 +1,6 @@
 # Harridee E-commerce App (Harridee Marketplace) - Work In Progress
 
-This project, developed by **Dzissah Donatus Dziedzorm** for **Jomacs IT**, details the design and deployment of the **Harridee E-commerce App (Harridee Marketplace)**.
+This project, developed by **Dzissah Donatus Dziedzorm** for **Jomacs IT**, details the design and deployment of the **Harridee E-commerce App (Harridee Marketplace)**. You've done so well for yourself. Great work, Donatus! Cheers, Johnson!!
 
 ## Technologies Used
 
