@@ -1,8 +1,31 @@
 # Harridee E-commerce App (Harridee Marketplace) - Work In Progress
 
-This project, developed by **Dzissah Donatus Dziedzorm** for **Jomacs IT**, details the design and deployment of the **Harridee E-commerce App (Harridee Marketplace)**.
+This project, developed by **Dzissah Donatus Dziedzorm** for **Jomacs IT**, details the design and deployment of the **Harridee E-commerce App (Harridee Marketplace)**.  You've done so well for yourself. Great work, Donatus! Cheers, Johnson!!
 
-## Technologies Used
+## Project Question
+
+**Secure CI/CD Pipeline with Automated Scanning**
+
+**Overview:**
+
+*   Implement a simple application (Node.js, Python, or Go) and set up a CI/CD pipeline that includes automated security scanning steps.
+*   Demonstrate how the pipeline enforces security checks before code gets deployed.
+
+**Steps:**
+
+1.  Create a small web application:
+    *   A minimal RESTful API or a static site is enough.
+2.  Set up version control and CI/CD:
+    *   Use GitHub Actions, GitLab CI, or Jenkins.
+3.  Include security scanning:
+    *   Static Application Security Testing (SAST): e.g., Snyk, Bandit for Python, or `npm audit` for Node.js.
+    *   Dependency Scanning: Ensure libraries have no known CVEs.
+4.  Add secrets management best practices:
+    *   Store credentials in GitHub Secrets, Vault, or AWS Secrets Manager instead of environment variables in the repo.
+5.  Generate compliance-related artifacts:
+    *   Pipeline logs, vulnerability scan reports, etc.
+
+## Technologies and resources Used
 
 *   AWS EC2 
 *   Application LLoad Balancer (ALB)

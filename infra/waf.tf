@@ -1,32 +1,6 @@
 # Fetch AWS account details
 data "aws_caller_identity" "current" {}
 
-# Create a CloudWatch Log Group for WAF logs
-resource "aws_cloudwatch_log_group" "waf_logs" {
-  name              = "aws-waf-logs-${var.waf_name}"
-  retention_in_days = 30
-}
-
-# Add a Resource Policy to allow AWS WAF to write logs to CloudWatch
-resource "aws_cloudwatch_log_resource_policy" "waf_logs_policy" {
-  policy_name = "AWSWAFLoggingPolicy"
-  policy_document = <<EOT
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "waf.amazonaws.com"
-      },
-      "Action": "logs:PutLogEvents",
-      "Resource": "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:aws-waf-logs-${var.waf_name}"
-    }
-  ]
-}
-EOT
-}
-
 # Define AWS WAF Web ACL
 resource "aws_wafv2_web_acl" "WafWebAcl" {
   name        = var.waf_name
@@ -136,6 +110,37 @@ resource "aws_wafv2_web_acl" "WafWebAcl" {
       sampled_requests_enabled   = true
     }
   }
+}
+
+# Create a CloudWatch Log Group for WAF logs
+resource "aws_cloudwatch_log_group" "waf_logs" {
+  name              = "aws-waf-logs-${var.waf_name}"
+  retention_in_days = 30
+}
+
+# Add a Resource Policy to allow AWS WAF to write logs to CloudWatch
+resource "aws_cloudwatch_log_resource_policy" "waf_logs_policy" {
+  policy_name = "AWSWAFLoggingPolicy"
+  policy_document = <<EOT
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "waf.amazonaws.com"
+      },
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+
+      "Resource": "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:aws-waf-logs-${var.waf_name}"
+    }
+  ]
+}
+EOT
 }
 
 # Enable WAF logging to CloudWatch
