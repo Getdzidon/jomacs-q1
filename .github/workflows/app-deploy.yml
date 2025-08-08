@@ -1,97 +1,91 @@
-# name: Deploy Application
+name: Deploy Application
 
-# on:
-#   push:
-#     branches:
-#       - main
-#     paths-ignore:
-#       - 'node_modules/**'
-#       - 'infra/**'
-#       - 'backend_s3_create/**'
-#       - 'oidc/**'
-#       - 'docs/**'
-#       - 'readme.md'
-#       - '.github/workflows/infra-deploy.yml'
-#       - '.gitignore' 
-#   workflow_dispatch: # Allows manual execution
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'node_modules/**'
+      - 'infra/**'
+      - 'backend_s3_create/**'
+      - 'oidc/**'
+      - 'docs/**'
+      - 'readme.md'
+      - '.github/workflows/infra-deploy.yml'
+      - '.gitignore' 
+  workflow_dispatch: # Allows manual execution
 
-# jobs:
-#   security_scan:
-#     name: Security Scan & install dependencies
-#     runs-on: ubuntu-latest
-#     defaults: 
-#       run:
-#         working-directory: ./app
+jobs:
+  security_scan:
+    name: Security Scan & install dependencies
+    runs-on: ubuntu-latest
+    defaults: 
+      run:
+        working-directory: ./app
 
-<<<<<<< HEAD
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v4
-=======
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
->>>>>>> 967d16d6b18379fdae393e21505bbc79e4354136
 
-#       - name: Install Dependencies
-#         run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-#       - name: Run Security Scan (npm audit)
-#         run: |
-#           # Run security scan and save the report in json format
-#           npm audit --audit-level=high --json > audit-report.json || true
-#           cat audit-report.json
+      - name: Run Security Scan (npm audit)
+        run: |
+          # Run security scan and save the report in json format
+          npm audit --audit-level=high --json > audit-report.json || true
+          cat audit-report.json
 
-#       - name: Upload audit-report
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: audit-report
-#           path: ./app/audit-report.json
+      - name: Upload audit-report
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-report
+          path: ./app/audit-report.json
 
-#   download-artifact:
-#     name: Download audit-report
-#     runs-on: ubuntu-latest
-#     needs: security_scan  # This job depends on the security_scan job
+  download-artifact:
+    name: Download audit-report
+    runs-on: ubuntu-latest
+    needs: security_scan  # This job depends on the security_scan job
 
-#     steps:
-#       - name: Download audit-report
-#         uses: actions/download-artifact@v4
-#         with:
-#           name: audit-report
+    steps:
+      - name: Download audit-report
+        uses: actions/download-artifact@v4
+        with:
+          name: audit-report
 
-#   deploy:
-#     name: Deploy to Production (on EC2)
-#     environment: production
-#     runs-on: ubuntu-latest
-#     defaults:
-#       run:
-#         working-directory: ./app
-#     needs: security_scan  # This job also depends on the security_scan job
+  deploy:
+    name: Deploy to Production (on EC2)
+    environment: production
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app
+    needs: security_scan  # This job also depends on the security_scan job
 
-#     steps:
-#       - name: Checkout the files
-#         uses: actions/checkout@v4
+    steps:
+      - name: Checkout the files
+        uses: actions/checkout@v4
 
-#       - name: Deploy to EC2 Server
-#         uses: easingthemes/ssh-deploy@main
-#         with:
-#           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-#           REMOTE_HOST: ${{ secrets.HOST_DNS }}
-#           REMOTE_USER: ${{ secrets.EC2_USER }}
-#           TARGET: ${{ secrets.TARGET_DIR }}
+      - name: Deploy to EC2 Server
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.EC2_USER }}
+          TARGET: ${{ secrets.TARGET_DIR }}
 
-#       - name: Executing remote ssh commands using ssh key
-#         uses: appleboy/ssh-action@master
-#         with:
-#           host: ${{ secrets.HOST_DNS }}
-#           username: ${{ secrets.EC2_USER }}
-#           key: ${{ secrets.EC2_SSH_KEY }}
-#           script: |
-#             # Change directory to the target directory
-#             cd ${{ secrets.TARGET_DIR }}
+      - name: Executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Change directory to the target directory
+            cd ${{ secrets.TARGET_DIR }}
 
-#             # Remove existing contents of /var/www/html
-#             sudo rm -rf /var/www/html/*
+            # Remove existing contents of /var/www/html
+            sudo rm -rf /var/www/html/*
 
-#             # Move new files to /var/www/html
-#             sudo mv app/public/* /var/www/html
+            # Move new files to /var/www/html
+            sudo mv app/public/* /var/www/html
