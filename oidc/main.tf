@@ -9,7 +9,6 @@ resource "aws_iam_openid_connect_provider" "github_actions_oidc" {
   thumbprint_list = ["6938fd4d98bab03faadb97b34396831e3780aea1"]
 }
 
-
 resource "aws_iam_role" "github_actions_api_access_role" {
   name = "GithubActions"
   assume_role_policy = jsonencode({
@@ -25,8 +24,9 @@ resource "aws_iam_role" "github_actions_api_access_role" {
           "StringEquals" : {
             "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
           },
-          "StringEquals" : {
-            "token.actions.githubusercontent.com:sub": "repo:getdzidon/jomacs-q1:ref:refs/heads/*"
+          "StringLike" : {
+            # Use StringLike to match the wildcard in the branch name.
+            "token.actions.githubusercontent.com:sub": "repo:getdzidon/jomacs-q1:*"
           }
         }
       }
