@@ -1,4 +1,4 @@
-# Fetch AWS account details
+# Fetch AWS account details dynamically
 data "aws_caller_identity" "current" {}
 
 # Define AWS WAF Web ACL
@@ -131,12 +131,11 @@ resource "aws_cloudwatch_log_resource_policy" "waf_logs_policy" {
         "Service": "waf.amazonaws.com"
       },
       "Action": [
-        "logs:CreateLogGroup",
         "logs:CreateLogStream",
         "logs:PutLogEvents"
       ],
 
-      "Resource": "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:aws-waf-logs-${var.waf_name}"
+      "Resource": "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:aws-waf-logs-${var.waf_name}:*"
     }
   ]
 }
@@ -152,4 +151,18 @@ resource "aws_wafv2_web_acl_logging_configuration" "waf_logging" {
     aws_cloudwatch_log_group.waf_logs,
     aws_cloudwatch_log_resource_policy.waf_logs_policy
   ]
+}
+
+# ✅ Create CloudWatch Metric Filter to Track Requests by Country
+resource "aws_cloudwatch_log_metric_filter" "top_countries" {
+  name           = "TopCountriesRequests"
+  log_group_name = aws_cloudwatch_log_group.waf_logs.name
+
+  pattern = "{ $.httpRequest.country != \"-\" }"
+
+  metric_transformation {
+    name      = "RequestsByCountry"
+    namespace = "harridee/WAF"
+    value     = "1"
+  }
 }

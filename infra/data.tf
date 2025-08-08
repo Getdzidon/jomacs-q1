@@ -60,13 +60,26 @@ data "aws_ssm_parameter" "account_id" {
   name            = "/global/aws/id"
   with_decryption = true
 }
-
-data "aws_ssm_parameter" "bucket_name" {
-  name            = "/terraform/backend/bucket"
-  with_decryption = true
-}
-
+# Fetching SSL certificate ARN from SSM Parameter Store
 data "aws_ssm_parameter" "ssl_cert_arn" {
   name            = "/MyEcommApp/ssl/ssl_cert_arn"
   with_decryption = true
 }
+
+# # Fetching S3 bucket name for Terraform state file from SSM Parameter Store
+# data "aws_ssm_parameter" "bucket_name" {
+#   name            = "/terraform/backend/bucket"
+#   with_decryption = true
+# }
+
+# # Fetching S3 bucket key for Terraform state file from SSM Parameter Store
+# data "aws_ssm_parameter" "s3_bucket_key" {
+#   name            = "/terraform/backend/s3_bucket_key"
+#   with_decryption = true
+# }
+
+# # Fetching S3 bucket region from SSM Parameter Store
+# data "aws_ssm_parameter" "s3_bucket_region" {
+#   name            = "/terraform/backend/region"
+#   with_decryption = true
+# }

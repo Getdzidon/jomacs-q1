@@ -23,10 +23,10 @@ variable "instance_type" {
 
 variable "instance_name" {
   description = "Name of EC2 instance"
-  default     = "e-com-app"
+  default     = "harridee-market"
 }
 
-variable "key_name" {
+variable "keypair_name" {
   description = "Name of the key pair to use for the EC2 instance"
   type        = string
   default     = "Jomacs Demo"
@@ -45,20 +45,25 @@ variable "domain_name" {
 
 variable "alb_name" {
   description = "Application Load Balancer name"
-  default     = "e-com-app-alb"
+  default     = "harridee-market-alb"
 }
 
 variable "waf_name" {
   description = "WAF name"
-  default     = "e-com-app-waf-web-acl"
+  default     = "harridee-market-waf"
 }
 
 variable "lb_target_group" {
   description = "Load Balancer Target group name"
-  default     = "e-comm-app-lb-tg"
+  default     = "harridee-market-lb-tg"
 }
 
 # variable "bucket_name" {
-#   default     = "harridee-ecom-app"
+#   default     = "harridee-tf-state-bucket"
 #   description = "Name of the S3 bucket for storing terraform.tfstate file"
+# }
+
+# variable "s3_bucket_key" {
+#   default     = "infrastructure/s3.tfstate"
+#   description = "Key for the S3 bucket where the Terraform state file is stored"
 # }

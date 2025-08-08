@@ -38,3 +38,27 @@ updates:
     labels:
       - "dependencies"
       - "terraform"
+
+        # Monitor Terraform dependencies in /infra/backend_s3_create
+  - package-ecosystem: "terraform"
+    directory: "/backend_s3_create"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "terraform update:"
+    labels:
+      - "dependencies"
+      - "terraform"
+
+  # Monitor Terraform dependencies in /oidc
+  - package-ecosystem: "terraform"
+    directory: "/oidc"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "terraform update:"
+    labels:
+      - "dependencies"
+      - "terraform"
