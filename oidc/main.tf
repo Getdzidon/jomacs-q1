@@ -22,10 +22,11 @@ resource "aws_iam_role" "github_actions_api_access_role" {
         },
         "Action" : "sts:AssumeRoleWithWebIdentity",
         "Condition" : {
-          "ForAnyValue:StringLike" : {
-            "token.actions.githubusercontent.com:sub" : [
-              "repo:getdzidon/jomacs-q1:ref:refs/heads/main"
-            ]
+          "StringLike" : {
+            "token.actions.githubusercontent.com:sub": "repo:getdzidon/jomacs-q1:ref:refs/heads/main"
+            },
+          "StringEquals": {
+                    "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
           }
         }
       }
