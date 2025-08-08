@@ -62,3 +62,14 @@ updates:
     labels:
       - "dependencies"
       - "terraform"
+
+  # Monitor GitHub Actions (e.g. actions/upload-artifact@v3)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "actions update:"
+    labels:
+      - "dependencies"
+      - "github-actions"
