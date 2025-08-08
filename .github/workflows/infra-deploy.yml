@@ -48,13 +48,46 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+<<<<<<< HEAD
+=======
+
+      - name: Terraform Init (with environment variables)
+        run: |
+          terraform init -migrate-state \
+            -backend-config="bucket=${{ secrets.S3_BUCKET_NAME }}" \
+            -backend-config="key=${{ secrets.TF_STATE_KEY }}" \
+            -backend-config="region=${{ secrets.S3_BUCKET_REGION }}"
+
+      - name: Cache Terraform Modules & Providers
+        uses: actions/cache@v4
+>>>>>>> 967d16d6b18379fdae393e21505bbc79e4354136
         with:
           terraform_version: "1.6.6"
 
+<<<<<<< HEAD
       - name: Terraform Init 
         id: init
         run: terraform init
         continue-on-error: false
+=======
+      - name: Restore Terraform State
+        uses: actions/cache@v4
+        with:
+          path: ./infra/terraform.tfstate
+          key: terraform-state-${{ github.run_id }}
+          restore-keys: terraform-state-
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Refresh (before Apply or Destroy)
+        run: |
+          terraform init -migrate-state \
+            -backend-config="bucket=${{ secrets.S3_BUCKET_NAME }}" \
+            -backend-config="key=${{ secrets.TF_STATE_KEY }}" \
+            -backend-config="region=${{ secrets.S3_BUCKET_REGION }}"
+          terraform refresh
+>>>>>>> 967d16d6b18379fdae393e21505bbc79e4354136
 
       - name: Terraform Plan
         id: plan 
@@ -67,9 +100,24 @@ jobs:
           path: infra/tfplan
 
       - name: Terraform Apply
+<<<<<<< HEAD
         id: apply
         if: ${{ github.event.inputs.terraform_action == 'apply' }}
         run: terraform apply -auto-approve tfplan
+=======
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event.inputs.action == 'apply'
+        run: terraform apply -auto-approve
+
+      - name: Save Terraform State
+        uses: actions/cache@v4
+        with:
+          path: ./infra/terraform.tfstate
+          key: terraform-state-${{ github.run_id }}
+
+      - name: Debug Terraform State (on Destroy)
+        if: github.event.inputs.action == 'destroy'
+        run: terraform state list
+>>>>>>> 967d16d6b18379fdae393e21505bbc79e4354136
 
       - name: Terraform Destroy
         id: destroy

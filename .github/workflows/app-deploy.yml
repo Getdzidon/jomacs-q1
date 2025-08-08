@@ -23,9 +23,15 @@
 #       run:
 #         working-directory: ./app
 
+<<<<<<< HEAD
 #     steps:
 #       - name: Checkout repository
 #         uses: actions/checkout@v4
+=======
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+>>>>>>> 967d16d6b18379fdae393e21505bbc79e4354136
 
 #       - name: Install Dependencies
 #         run: npm install
