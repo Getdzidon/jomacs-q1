@@ -25,7 +25,7 @@ resource "aws_iam_role" "github_actions_api_access_role" {
       "Condition": {
         "StringEquals": {
           "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-          "token.actions.githubusercontent.com:sub": "repo:getdzidon/jomacs-q1:ref:refs/heads/main"
+          "token.actions.githubusercontent.com:sub": "repo:Getdzidon/jomacs-q1:ref:refs/heads/main"
         }
       }
     }
