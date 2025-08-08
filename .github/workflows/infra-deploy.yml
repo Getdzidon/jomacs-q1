@@ -25,9 +25,6 @@ permissions:
   id-token: write   # Required for OIDC
   contents: read # This is required for actions/checkout
 
-env:
-  AWS_REGION: ${{ secrets.AWS_REGION }}
-
 jobs:
   deploy_infra:
     name: Deploy AWS Infrastructure
@@ -44,7 +41,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.OIDC_ROLE_NAME }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3

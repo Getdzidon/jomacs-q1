@@ -24,7 +24,7 @@ resource "aws_iam_role" "github_actions_api_access_role" {
         "Condition" : {
           "ForAnyValue:StringLike" : {
             "token.actions.githubusercontent.com:sub" : [
-              "repo:getdzidon/my-repo:ref:refs/heads/main"
+              "repo:getdzidon/jomacs-q1:ref:refs/heads/main"
             ]
           }
         }
