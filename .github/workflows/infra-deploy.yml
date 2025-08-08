@@ -23,7 +23,7 @@ on:
 
 permissions:
   id-token: write   # Required for OIDC
-  contents: read # This is required for actions/checkout
+  contents: read # This is required for actions/checkout.
 
 jobs:
   deploy_infra:
@@ -38,7 +38,7 @@ jobs:
 
       # OIDC-based AWS authentication (no static AWS keys in needed in secrets).
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v4.3.1
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.OIDC_ROLE_NAME }}
           aws-region: ${{ secrets.AWS_REGION }}
