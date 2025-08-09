@@ -3,6 +3,7 @@ updates:
   # Monitor npm dependencies in the app directory
   - package-ecosystem: "npm"
     directory: "/app"
+    target-branch: "main"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
@@ -14,10 +15,13 @@ updates:
     labels:
       - "dependencies"
       - "npm"
+    #   - "dependabot"
+    #   - "Getdzidon"
 
   # Monitor GitHub Actions dependencies
   - package-ecosystem: "github-actions"
     directory: "/.github/workflows"
+    target-branch: "main"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
@@ -26,10 +30,14 @@ updates:
     labels:
       - "dependencies"
       - "github-actions"
+    # reviewers:
+    #   - "dependabot"
+    #   - "Getdzidon"
 
   # Monitor Terraform dependencies in the infra directory
   - package-ecosystem: "terraform"
     directory: "/infra"
+    target-branch: "main"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
@@ -38,10 +46,13 @@ updates:
     labels:
       - "dependencies"
       - "terraform"
+    #   - "dependabot"
+    #   - "Getdzidon"
 
         # Monitor Terraform dependencies in /infra/backend_s3_create
   - package-ecosystem: "terraform"
     directory: "/backend_s3_create"
+    target-branch: "main"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
@@ -50,10 +61,13 @@ updates:
     labels:
       - "dependencies"
       - "terraform"
+    #   - "dependabot"
+    #   - "Getdzidon"
 
   # Monitor Terraform dependencies in /oidc
   - package-ecosystem: "terraform"
     directory: "/oidc"
+    target-branch: "main"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
@@ -62,10 +76,13 @@ updates:
     labels:
       - "dependencies"
       - "terraform"
+    #   - "dependabot"
+    #   - "Getdzidon"
 
   # Monitor GitHub Actions (e.g. actions/upload-artifact@v3)
   - package-ecosystem: "github-actions"
     directory: "/"
+    target-branch: "main"
     schedule:
       interval: "weekly"
     commit-message:
@@ -73,3 +90,5 @@ updates:
     labels:
       - "dependencies"
       - "github-actions"
+      # - "dependabot"
+      # - "Getdzidon"

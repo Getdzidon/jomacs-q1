@@ -22,7 +22,7 @@ on:
           - destroy
 
 permissions:
-  id-token: write   # Required for OIDC.
+  id-token: write   # Required for OIDC
   contents: read # This is required for actions/checkout
 
 jobs:
