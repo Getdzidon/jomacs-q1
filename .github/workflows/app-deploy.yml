@@ -9,6 +9,7 @@ on:
       - 'infra/**'
       - 'backend_s3_create/**'
       - 'oidc/**'
+      - 'oidc-backup/**'
       - 'docs/**'
       - 'readme.md'
       - '.github/workflows/infra-deploy.yml'

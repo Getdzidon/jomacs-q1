@@ -11,6 +11,7 @@ on:
       - '.github/workflows/app-deploy.yml'
       - 'backend_s3_create/**'
       - 'oidc/**'
+      - 'oidc-backup/**'
   workflow_dispatch:
     inputs:
       terraform_action:
