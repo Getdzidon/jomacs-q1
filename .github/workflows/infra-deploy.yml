@@ -55,8 +55,7 @@ jobs:
 
       - name: Terraform Init 
         id: init
-        run: terraform init
-        continue-on-error: false
+        run: terraform init -upgrade
 
       - name: Terraform Plan
         id: plan 
