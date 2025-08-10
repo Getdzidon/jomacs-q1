@@ -12,9 +12,10 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "deebest-tf-state-bucket"     # Replace with your S3 bucket name (manually created)
-    key    = "secretes/OIDC/oidc.tfstate"      # The path within the bucket
-    region = "eu-central-1"                        # S3 bucket region
+    bucket = "deebest-tf-state-bucket"      # Replace with your S3 bucket name (manually created)
+    key    = "secretes/OIDC/oidc.tfstate"   # The path within the bucket
+    region = "eu-central-1"                 # S3 bucket region
+    # use_lockfile = true                      
   }
   
 }

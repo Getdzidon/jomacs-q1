@@ -13,6 +13,7 @@ terraform {
     bucket = "deebest-tf-state-bucket"
     key    = "infrastructure/infra.tfstate"
     region = "eu-central-1"
+    # use_lockfile = true
   }
 }
 

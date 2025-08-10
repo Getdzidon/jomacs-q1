@@ -1,3 +1,7 @@
+######################################################################
+# Note, variables with no default value set will be required to be provided
+# by the user when running the module "terraform plan" or "terraform apply"
+######################################################################
 variable "policy_arns" {
   type        = list
   description = "The list of policies arn to add permissions to the IAM role"
@@ -5,13 +9,11 @@ variable "policy_arns" {
 
 variable "owner" {
   type        = string
-  default     = "Getdzidon"
   description = "The Github repository owner to allow to assume the role"
 }
 
 variable "repository" {
   type        = string
-  default     = "jomacs-q1"
   description = "The Github repository to allow to assume the role"
 }
 
