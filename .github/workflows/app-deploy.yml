@@ -38,7 +38,7 @@ jobs:
           cat audit-report.json
 
       - name: Upload audit-report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: audit-report
           path: ./app/audit-report.json
