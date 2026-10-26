@@ -11,8 +11,6 @@ logs/
 *.seed
 
 # Environment variables and secrets
-.env
-.env.local
 .env.*.local
 secrets.json
 
@@ -21,7 +19,6 @@ dist/
 build/
 
 # IDE/editor-specific files
-.vscode/
 .idea/
 *.swp
 *.swo
@@ -60,3 +57,4 @@ config
 deployment.log
 terraform.lock.hcl
 
+config.bat
