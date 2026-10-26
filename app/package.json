@@ -4,7 +4,7 @@
   "description": "A simple e-commerce static website",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node init && node server.js"
   },
   "dependencies": {
     "express": "^5.1.0"
